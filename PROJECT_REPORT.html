@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Cloud Video Fingerprint Collection System - Project Report</title>
+<style>
+  @page { size: A4; margin: 18mm 16mm; }
+  * { box-sizing: border-box; }
+  body { color: #1d2b2c; font: 11pt/1.55 Arial, sans-serif; }
+  h1 { color: #173c3d; font-size: 28pt; line-height: 1.1; margin: 0 0 8pt; }
+  h2 { color: #bd5433; border-bottom: 1px solid #d8dfd9; padding-bottom: 4pt; margin-top: 24pt; }
+  h3 { color: #173c3d; margin-top: 16pt; }
+  .cover { min-height: 235mm; display: flex; flex-direction: column; justify-content: center; }
+  .eyebrow { color: #bd5433; font-size: 9pt; font-weight: bold; letter-spacing: 2px; text-transform: uppercase; }
+  .subtitle { color: #637172; font-size: 14pt; max-width: 520px; }
+  .meta { margin-top: 35pt; color: #637172; }
+  .page-break { page-break-before: always; }
+  table { border-collapse: collapse; width: 100%; margin: 10pt 0 16pt; }
+  th { background: #173c3d; color: white; text-align: left; }
+  th, td { border: 1px solid #d8dfd9; padding: 7pt; vertical-align: top; }
+  .good { color: #287a62; font-weight: bold; }
+  .partial { color: #a06a20; font-weight: bold; }
+  .pending { color: #a53e28; font-weight: bold; }
+  code, pre { font-family: Consolas, monospace; font-size: 9pt; }
+  pre { background: #f2f5f1; padding: 10pt; white-space: pre-wrap; }
+  .note { background: #eef3ed; border-left: 4px solid #287a62; padding: 9pt 12pt; }
+  li { margin-bottom: 5pt; }
+</style>
+</head>
+<body>
+<section class="cover">
+  <div class="eyebrow">Cloud Computing Project Report</div>
+  <h1>Cloud-Based Video Fingerprint Collection System</h1>
+  <p class="subtitle">A dashcam proof of concept for an insurance company using real-time cryptographic frame fingerprints, database-backed video evidence, and customer-scoped integrity analysis.</p>
+  <p class="meta"><strong>Project workspace:</strong> CloudVideoFingerprint<br><strong>Technology:</strong> Python, FastAPI, browser MediaRecorder, Web Crypto SHA-256, SQLite fallback, Supabase PostgreSQL integration<br><strong>Date:</strong> September 2026</p>
+</section>
+
+<h2>1. Executive Summary</h2>
+<p>This project implements a cloud-ready evidence collection system for an insurance company. A customer enters a unique ID and uses a browser camera as a dashcam. Raw video remains local while recording. Frame fingerprints are generated locally and transmitted in real time. When recording stops, the completed video and its fingerprint metadata are stored in the database and linked to the customer ID.</p>
+<p>An insurance user can filter saved media by customer, select a specific video, and run an integrity check. The system calculates a complete-file SHA-256 digest, analyzes frame fingerprints, detects duplicate uploads, and detects frame reuse across different videos.</p>
+
+<h2>2. Requirements Coverage</h2>
+<table><tr><th>Requirement</th><th>Status</th><th>Implementation</th></tr>
+<tr><td>Modular architecture</td><td class="good">Satisfied</td><td>FastAPI application, storage adapter, browser dashboard, schema, tests, and documentation.</td></tr>
+<tr><td>Customer and insurance dashboards</td><td class="good">Satisfied</td><td>Two role views inside one application.</td></tr>
+<tr><td>Input handling</td><td class="good">Satisfied</td><td>Live camera, local image/video selection, and a text fingerprint API route.</td></tr>
+<tr><td>Timestamping</td><td class="good">Satisfied</td><td>UTC timestamps are stored for media and fingerprint records.</td></tr>
+<tr><td>Real-time transmission</td><td class="good">Satisfied</td><td>Frame fingerprints are sent during recording through <code>/api/live-fingerprints</code>.</td></tr>
+<tr><td>Cloud persistence</td><td class="partial">Configuration required</td><td>Supabase REST integration and schema are implemented; the project must be connected to the user’s Supabase account.</td></tr>
+<tr><td>Data security and cryptography</td><td class="good">Satisfied</td><td>SHA-256 file and frame hashes, customer scoping, database RLS policies, and HTTPS Supabase requests.</td></tr>
+<tr><td>Integrity validation</td><td class="good">Satisfied</td><td>Verified/unverified frames, integrity percentage, duplicate detection, and cross-video overlap detection.</td></tr>
+<tr><td>Documentation and attribution</td><td class="good">Satisfied</td><td>README includes setup, architecture, API overview, dependencies, and attribution.</td></tr>
+<tr><td>Demo video submission</td><td class="pending">Manual</td><td>A screen recording still needs to be produced and submitted.</td></tr></table>
+
+<h2>3. System Architecture</h2>
+<pre>Browser camera / local media
+        |
+        | SHA-256 frame fingerprints in real time
+        v
+FastAPI backend
+        |
+        +-- live_fingerprints: real-time stream records
+        +-- fingerprints: customer and media frame references
+        +-- media_files: database video bytes and metadata
+        |
+        +-- Supabase PostgreSQL over HTTPS
+        +-- SQLite fallback for offline demonstration
+        |
+Insurance dashboard: customer filter -> video selection -> integrity analysis</pre>
+
+<h2>4. Customer Workflow</h2>
+<ol><li>Enter a unique customer ID.</li><li>Enable the camera and start local recording.</li><li>During recording, the browser samples frames and calculates SHA-256 fingerprints.</li><li>Fingerprints are transmitted to the real-time stream while raw video remains local.</li><li>When the customer stops recording, the final video is stored with its customer ID and fingerprints.</li><li>Customers may also choose a local photo/video and upload it directly.</li></ol>
+
+<h2>5. Insurance Workflow</h2>
+<ol><li>Open the Insurance Dashboard.</li><li>Filter saved media by customer ID.</li><li>Review the video list, filename, type, fingerprint count, and timestamp.</li><li>Click <strong>Check integrity</strong> for one specific video.</li><li>Review the SHA-256 file digest, integrity percentage, verified/unverified frame counts, and frame-by-frame results.</li><li>Investigate re-upload warnings and frame-overlap warnings when displayed.</li></ol>
+
+<h2>6. Integrity and Cryptographic Analysis</h2>
+<p>The system uses SHA-256 for complete media files and sampled frames. A complete-file digest verifies whether stored bytes match the original stored reference. Frame fingerprints are compared with previous videos for the same customer.</p>
+<ul><li><strong>Integrity percentage:</strong> verified frames divided by analyzed frames multiplied by 100.</li><li><strong>Duplicate upload:</strong> same customer ID and same complete-file SHA-256.</li><li><strong>Frame overlap:</strong> a frame fingerprint found in another video for the same customer.</li><li><strong>Unverified frame:</strong> a duplicate or overlapping frame requiring insurance review.</li></ul>
+<div class="note">The system deliberately uses the neutral terms <strong>verified</strong> and <strong>unverified</strong>. An unverified frame is flagged for review; it is not automatically declared fraudulent.</div>
+
+<h2>7. Database and Security</h2>
+<p>The Supabase schema creates <code>fingerprints</code>, <code>live_fingerprints</code>, and <code>media_files</code> tables. Row Level Security is enabled, with service-role policies for the server-side API. The service-role key is loaded from <code>.env</code> and must never be exposed to browser code or committed to source control.</p>
+<p>For local demonstrations, SQLite provides an offline fallback. For cloud evaluation, the schema must be executed in Supabase and the environment must report <code>storage_backend: Supabase</code>.</p>
+
+<h2>8. Testing and Verification</h2>
+<p>The automated suite contains nine passing tests covering validation, uploads, customer isolation, media storage, generic video MIME types, duplicate uploads, cross-video frame overlap, and integrity analysis.</p>
+<pre>python -m pytest -q
+9 passed</pre>
+
+<h2>9. Demonstration Checklist</h2>
+<ul><li>Show the Customer Dashboard and enter a customer ID.</li><li>Enable the camera and record several seconds.</li><li>Show that fingerprints are transmitted during recording.</li><li>Stop recording and show automatic database-backed media listing.</li><li>Open the Insurance Dashboard and filter by customer ID.</li><li>Click Check integrity and show SHA-256 and frame analysis.</li><li>Upload the same video again and show re-upload review status.</li><li>Show a different video with reused frames and show the frame-overlap warning.</li></ul>
+
+<h2>10. Setup Commands</h2>
+<pre>Copy-Item .env.example .env
+# Add SUPABASE_URL and SUPABASE_KEY to .env
+.venv\Scripts\python.exe -m uvicorn app.main:app --host 127.0.0.1 --port 8000</pre>
+<p><strong>Application URL:</strong> http://127.0.0.1:8000</p>
+</body>
+</html>

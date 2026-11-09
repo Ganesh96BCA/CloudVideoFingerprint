@@ -1,0 +1,14 @@
+fastapi>=0.115,<1
+uvicorn[standard]>=0.30,<1
+httpx>=0.27,<1
+python-multipart>=0.0.9,<1
+pytest>=8,<9
+opencv-python-headless>=4.10,<5
+ImageHash>=4.3,<5
+numpy>=1.26,<3
+Pillow>=10,<13
+imageio-ffmpeg>=0.5
+ppdeep>=20200505
+scipy>=1.11
+PyWavelets>=1.5
+# optional: python-tlsh (needs C++ compiler)

@@ -1,0 +1,132 @@
+[
+  {
+    "output": "original_trip.mp4",
+    "note": "synthetic trip",
+    "command": "C:\\Users\\dell\\OneDrive\\Desktop\\CloudVideoFingerprint\\.venv\\Lib\\site-packages\\imageio_ffmpeg\\binaries\\ffmpeg-win-x86_64-v7.1.exe -y -loglevel error -i dataset\\original_trip.raw.mp4 -c:v libx264 -crf 20 -pix_fmt yuv420p -an dataset\\original_trip.mp4"
+  },
+  {
+    "output": "other_trip.mp4",
+    "note": "synthetic trip",
+    "command": "C:\\Users\\dell\\OneDrive\\Desktop\\CloudVideoFingerprint\\.venv\\Lib\\site-packages\\imageio_ffmpeg\\binaries\\ffmpeg-win-x86_64-v7.1.exe -y -loglevel error -i dataset\\other_trip.raw.mp4 -c:v libx264 -crf 20 -pix_fmt yuv420p -an dataset\\other_trip.mp4"
+  },
+  {
+    "output": "trim_start.mp4",
+    "note": "drop first 5 s",
+    "command": "C:\\Users\\dell\\OneDrive\\Desktop\\CloudVideoFingerprint\\.venv\\Lib\\site-packages\\imageio_ffmpeg\\binaries\\ffmpeg-win-x86_64-v7.1.exe -y -loglevel error -i dataset\\original_trip.mp4 -ss 5 -c:v libx264 -an dataset\\trim_start.mp4"
+  },
+  {
+    "output": "trim_end.mp4",
+    "note": "drop last 5 s",
+    "command": "C:\\Users\\dell\\OneDrive\\Desktop\\CloudVideoFingerprint\\.venv\\Lib\\site-packages\\imageio_ffmpeg\\binaries\\ffmpeg-win-x86_64-v7.1.exe -y -loglevel error -i dataset\\original_trip.mp4 -t 35.0 -c:v libx264 -an dataset\\trim_end.mp4"
+  },
+  {
+    "output": "trip_segment.mp4",
+    "note": "15 s segment starting at 10 s",
+    "command": "C:\\Users\\dell\\OneDrive\\Desktop\\CloudVideoFingerprint\\.venv\\Lib\\site-packages\\imageio_ffmpeg\\binaries\\ffmpeg-win-x86_64-v7.1.exe -y -loglevel error -i dataset\\original_trip.mp4 -ss 10 -t 15 -c:v libx264 -an dataset\\trip_segment.mp4"
+  },
+  {
+    "output": "shifted_5s.mp4",
+    "note": "5 s of other footage prepended (time shift +5 s)",
+    "command": "C:\\Users\\dell\\OneDrive\\Desktop\\CloudVideoFingerprint\\.venv\\Lib\\site-packages\\imageio_ffmpeg\\binaries\\ffmpeg-win-x86_64-v7.1.exe -y -loglevel error -i dataset\\shifted_5s.raw.mp4 -c:v libx264 -crf 20 -pix_fmt yuv420p -an dataset\\shifted_5s.mp4"
+  },
+  {
+    "output": "speed_0_9.mp4",
+    "note": "playback 0.9x",
+    "command": "C:\\Users\\dell\\OneDrive\\Desktop\\CloudVideoFingerprint\\.venv\\Lib\\site-packages\\imageio_ffmpeg\\binaries\\ffmpeg-win-x86_64-v7.1.exe -y -loglevel error -i dataset\\original_trip.mp4 -vf setpts=PTS/0.9 -an dataset\\speed_0_9.mp4"
+  },
+  {
+    "output": "speed_1_1.mp4",
+    "note": "playback 1.1x",
+    "command": "C:\\Users\\dell\\OneDrive\\Desktop\\CloudVideoFingerprint\\.venv\\Lib\\site-packages\\imageio_ffmpeg\\binaries\\ffmpeg-win-x86_64-v7.1.exe -y -loglevel error -i dataset\\original_trip.mp4 -vf setpts=PTS/1.1 -an dataset\\speed_1_1.mp4"
+  },
+  {
+    "output": "fps_15.mp4",
+    "note": "15 fps",
+    "command": "C:\\Users\\dell\\OneDrive\\Desktop\\CloudVideoFingerprint\\.venv\\Lib\\site-packages\\imageio_ffmpeg\\binaries\\ffmpeg-win-x86_64-v7.1.exe -y -loglevel error -i dataset\\original_trip.mp4 -vf fps=15 -an dataset\\fps_15.mp4"
+  },
+  {
+    "output": "fps_60.mp4",
+    "note": "60 fps",
+    "command": "C:\\Users\\dell\\OneDrive\\Desktop\\CloudVideoFingerprint\\.venv\\Lib\\site-packages\\imageio_ffmpeg\\binaries\\ffmpeg-win-x86_64-v7.1.exe -y -loglevel error -i dataset\\original_trip.mp4 -vf fps=60 -an dataset\\fps_60.mp4"
+  },
+  {
+    "output": "missing_frames.mp4",
+    "note": "every 10th frame deleted",
+    "command": "C:\\Users\\dell\\OneDrive\\Desktop\\CloudVideoFingerprint\\.venv\\Lib\\site-packages\\imageio_ffmpeg\\binaries\\ffmpeg-win-x86_64-v7.1.exe -y -loglevel error -i dataset\\missing_frames.raw.mp4 -c:v libx264 -crf 20 -pix_fmt yuv420p -an dataset\\missing_frames.mp4"
+  },
+  {
+    "output": "duplicated_frames.mp4",
+    "note": "every 10th frame duplicated",
+    "command": "C:\\Users\\dell\\OneDrive\\Desktop\\CloudVideoFingerprint\\.venv\\Lib\\site-packages\\imageio_ffmpeg\\binaries\\ffmpeg-win-x86_64-v7.1.exe -y -loglevel error -i dataset\\duplicated_frames.raw.mp4 -c:v libx264 -crf 20 -pix_fmt yuv420p -an dataset\\duplicated_frames.mp4"
+  },
+  {
+    "output": "reordered_frames.mp4",
+    "note": "swap adjacent 0.5 s blocks",
+    "command": "C:\\Users\\dell\\OneDrive\\Desktop\\CloudVideoFingerprint\\.venv\\Lib\\site-packages\\imageio_ffmpeg\\binaries\\ffmpeg-win-x86_64-v7.1.exe -y -loglevel error -i dataset\\reordered_frames.raw.mp4 -c:v libx264 -crf 20 -pix_fmt yuv420p -an dataset\\reordered_frames.mp4"
+  },
+  {
+    "output": "h265_reencoded.mp4",
+    "note": "H.265 crf 28",
+    "command": "C:\\Users\\dell\\OneDrive\\Desktop\\CloudVideoFingerprint\\.venv\\Lib\\site-packages\\imageio_ffmpeg\\binaries\\ffmpeg-win-x86_64-v7.1.exe -y -loglevel error -i dataset\\original_trip.mp4 -c:v libx265 -crf 28 -an dataset\\h265_reencoded.mp4"
+  },
+  {
+    "output": "bitrate_changed.mp4",
+    "note": "300 kbit/s",
+    "command": "C:\\Users\\dell\\OneDrive\\Desktop\\CloudVideoFingerprint\\.venv\\Lib\\site-packages\\imageio_ffmpeg\\binaries\\ffmpeg-win-x86_64-v7.1.exe -y -loglevel error -i dataset\\original_trip.mp4 -b:v 300k -an dataset\\bitrate_changed.mp4"
+  },
+  {
+    "output": "resolution_changed.mp4",
+    "note": "320 px wide",
+    "command": "C:\\Users\\dell\\OneDrive\\Desktop\\CloudVideoFingerprint\\.venv\\Lib\\site-packages\\imageio_ffmpeg\\binaries\\ffmpeg-win-x86_64-v7.1.exe -y -loglevel error -i dataset\\original_trip.mp4 -vf scale=320:-2 -an dataset\\resolution_changed.mp4"
+  },
+  {
+    "output": "quality_changed.mp4",
+    "note": "crf 38 (strong compression)",
+    "command": "C:\\Users\\dell\\OneDrive\\Desktop\\CloudVideoFingerprint\\.venv\\Lib\\site-packages\\imageio_ffmpeg\\binaries\\ffmpeg-win-x86_64-v7.1.exe -y -loglevel error -i dataset\\original_trip.mp4 -c:v libx264 -crf 38 -an dataset\\quality_changed.mp4"
+  },
+  {
+    "output": "brightness_changed.mp4",
+    "note": "brightness +0.08",
+    "command": "C:\\Users\\dell\\OneDrive\\Desktop\\CloudVideoFingerprint\\.venv\\Lib\\site-packages\\imageio_ffmpeg\\binaries\\ffmpeg-win-x86_64-v7.1.exe -y -loglevel error -i dataset\\original_trip.mp4 -vf eq=brightness=0.08 -an dataset\\brightness_changed.mp4"
+  },
+  {
+    "output": "contrast_changed.mp4",
+    "note": "contrast 1.25",
+    "command": "C:\\Users\\dell\\OneDrive\\Desktop\\CloudVideoFingerprint\\.venv\\Lib\\site-packages\\imageio_ffmpeg\\binaries\\ffmpeg-win-x86_64-v7.1.exe -y -loglevel error -i dataset\\original_trip.mp4 -vf eq=contrast=1.25 -an dataset\\contrast_changed.mp4"
+  },
+  {
+    "output": "salt_pepper.mp4",
+    "note": "salt-and-pepper 2% of pixels",
+    "command": "C:\\Users\\dell\\OneDrive\\Desktop\\CloudVideoFingerprint\\.venv\\Lib\\site-packages\\imageio_ffmpeg\\binaries\\ffmpeg-win-x86_64-v7.1.exe -y -loglevel error -i dataset\\salt_pepper.raw.mp4 -c:v libx264 -crf 20 -pix_fmt yuv420p -an dataset\\salt_pepper.mp4"
+  },
+  {
+    "output": "moderate_noise.mp4",
+    "note": "gaussian-like noise alls=12",
+    "command": "C:\\Users\\dell\\OneDrive\\Desktop\\CloudVideoFingerprint\\.venv\\Lib\\site-packages\\imageio_ffmpeg\\binaries\\ffmpeg-win-x86_64-v7.1.exe -y -loglevel error -i dataset\\original_trip.mp4 -vf noise=alls=12:allf=t+u -an dataset\\moderate_noise.mp4"
+  },
+  {
+    "output": "watermark.mp4",
+    "note": "logo box 200x70 px (about 6% of image)",
+    "command": "C:\\Users\\dell\\OneDrive\\Desktop\\CloudVideoFingerprint\\.venv\\Lib\\site-packages\\imageio_ffmpeg\\binaries\\ffmpeg-win-x86_64-v7.1.exe -y -loglevel error -i dataset\\watermark.raw.mp4 -c:v libx264 -crf 20 -pix_fmt yuv420p -an dataset\\watermark.mp4"
+  },
+  {
+    "output": "cropped.mp4",
+    "note": "centre crop 85%",
+    "command": "C:\\Users\\dell\\OneDrive\\Desktop\\CloudVideoFingerprint\\.venv\\Lib\\site-packages\\imageio_ffmpeg\\binaries\\ffmpeg-win-x86_64-v7.1.exe -y -loglevel error -i dataset\\original_trip.mp4 -vf crop=iw*0.85:ih*0.85 -an dataset\\cropped.mp4"
+  },
+  {
+    "output": "partially_replaced.mp4",
+    "note": "10 s (15-25 s) replaced by other trip",
+    "command": "C:\\Users\\dell\\OneDrive\\Desktop\\CloudVideoFingerprint\\.venv\\Lib\\site-packages\\imageio_ffmpeg\\binaries\\ffmpeg-win-x86_64-v7.1.exe -y -loglevel error -i dataset\\partially_replaced.raw.mp4 -c:v libx264 -crf 20 -pix_fmt yuv420p -an dataset\\partially_replaced.mp4"
+  },
+  {
+    "output": "other_trip_rotated.mp4",
+    "note": "other trip, halves swapped (second non-matching trip)",
+    "command": "C:\\Users\\dell\\OneDrive\\Desktop\\CloudVideoFingerprint\\.venv\\Lib\\site-packages\\imageio_ffmpeg\\binaries\\ffmpeg-win-x86_64-v7.1.exe -y -loglevel error -i dataset\\other_trip_rotated.raw.mp4 -c:v libx264 -crf 20 -pix_fmt yuv420p -an dataset\\other_trip_rotated.mp4"
+  },
+  {
+    "output": "reversed_original.mp4",
+    "note": "original played backwards",
+    "command": "C:\\Users\\dell\\OneDrive\\Desktop\\CloudVideoFingerprint\\.venv\\Lib\\site-packages\\imageio_ffmpeg\\binaries\\ffmpeg-win-x86_64-v7.1.exe -y -loglevel error -i dataset\\reversed_original.raw.mp4 -c:v libx264 -crf 20 -pix_fmt yuv420p -an dataset\\reversed_original.mp4"
+  }
+]
